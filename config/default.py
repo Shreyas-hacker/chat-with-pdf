@@ -10,10 +10,10 @@ class Config:
     # $\\left(\\Large{Chat with PDF 📃}\\right)$
     # """
     TITLE = """
-        $\\left(\\Large{Chat with PDF 📃}\\right)$
+        $\\left(\\Large{Chat with csv 📃}\\right)$
         """
     ALLOW_MULTIPLE_FILES = False
-    ALLOWED_FILE_EXTENSION = 'pdf'
+    ALLOWED_FILE_EXTENSION = 'csv'
     EXCERPT_LENGTH = 300
     VERTICAL_SPACING = 2
     NUMBER_OF_RELEVANT_CHUNKS = 2

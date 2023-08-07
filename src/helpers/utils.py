@@ -15,7 +15,7 @@ from langchain.vectorstores.base import VectorStoreRetriever
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
-from init_llama2 import llmLlama2, embeddingsllama2
+# from init_llama2 import llmLlama2, embeddingsllama2
 
 my_openai_api_key = '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'
 
@@ -45,8 +45,8 @@ def generate_response(query: str, chain_type: str, retriever: VectorStoreRetriev
         return result
     else:
         qa = RetrievalQA.from_chain_type(
-            # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
-            llm=llmLlama2,
+            llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+            # llm=llmLlama2,
             chain_type=chain_type,
             retriever=retriever,
             return_source_documents=True
@@ -79,15 +79,15 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
         password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
     )
 
-    # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
-    embeddings = embeddingsllama2
+    embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
+    # embeddings = embeddingsllama2
 
     db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 def get_file_path(file) -> str:
     """Obtain the file full path."""
-    with NamedTemporaryFile(dir='/tmp/', suffix='.pdf', delete=False) as f:
+    with NamedTemporaryFile(dir='/tmp/', suffix='.csv', delete=False) as f:
         f.write(file.getbuffer())
         return f.name
 
