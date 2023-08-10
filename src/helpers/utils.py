@@ -13,7 +13,7 @@ from langchain.schema import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.vectorstores.base import VectorStoreRetriever
-from langchain.llms import Tongyi
+from langchain.llms import  Tongyi
 
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
