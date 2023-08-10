@@ -64,3 +64,5 @@ For more information about DMS, please refer to [here](https://www.alibabacloud.
 
 ## 5.6 adb pg password: alibabacloud666
 # step 6 my token and credentials are invalidated and revoked,they are just a demo purpose to show you what are they look like. Do not try to use it , it is a waste of time
+
+this is working for 768
