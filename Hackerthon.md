@@ -16,7 +16,9 @@ In this guide, we'll walk through the steps needed to fork, star, and further de
 1. Now, navigate to the `llama2` branch in the newly forked repository.
 1. In the top-right corner of the repository, click the `Star` button. This will help you keep track of updates to the original project.
 ![img.png](img.png)
-## Step 2: Start the Alibaba Cloud Compute Nest Component
+## Step 2: Start the haidong gpt llama2 on Alibaba Cloud Compute Nest Component
+
+detail walk through [link from alibaba official blog post](https://www.alibabacloud.com/blog/600282)
 
 1. Log into your Alibaba Cloud account.
 1. Navigate to the Compute Nest component section.
