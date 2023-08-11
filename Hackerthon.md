@@ -1,6 +1,6 @@
 # Developer Guide for Hackerthon
 
-In this guide, we'll walk through the steps needed to fork, star, and further develop the `llama2` branch of the `chat-with-pdf` project hosted at [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.) The project is a chatbot powered by ChatGPT that can query a PDF.
+In this guide, we'll walk through the steps needed to fork, star, and further develop the `llama2` branch of the `chat-with-pdf` project hosted at [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.) The project is a chatbot powered by LLAMA2 and [AnalyticDB for PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql) that can query a PDF.
 
 ## Prerequisites
 
