@@ -1,4 +1,4 @@
-# Panduan Pengembang untuk Hackerthon
+# Panduan Pengembang untuk [Hackerthon](https://resource.alibabacloud.com/event/detail?id=6854)
 
 Dalam panduan ini, kita akan membahas langkah-langkah yang diperlukan untuk melakukan fork, memberi bintang, dan mengembangkan lebih lanjut cabang `llama2` dari proyek `chat-with-pdf` yang dihosting di [https://github.com/daviddhc20120601/chat- dengan-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.) Proyek ini adalah chatbot yang didukung oleh LLAMA2 dan [AnalyticDB untuk PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql ) yang dapat meminta PDF.
 
