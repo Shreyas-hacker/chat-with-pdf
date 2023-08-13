@@ -1,6 +1,6 @@
 # Developer Guide for [Hackerthon](https://resource.alibabacloud.com/event/detail?id=6854)
 
-In this guide, we'll walk through the steps needed to fork, star, and further develop the `llama2` branch of the `chat-with-pdf` project hosted at [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.) The project is a chatbot powered by LLAMA2 and [AnalyticDB for PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql) that can query a PDF.
+In this guide, we'll walk through the steps needed to fork, star, and further develop the `llama2` branch of the `chat-with-pdf` project hosted at [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf) The project is a chatbot powered by LLAMA2 and [AnalyticDB for PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql) that can query a PDF.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ In this guide, we'll walk through the steps needed to fork, star, and further de
 
 ## Step 1: Fork and Star the Repository
 
-1. Navigate to the `chat-with-pdf` repository located at [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.)
+1. Navigate to the `chat-with-pdf` repository located at [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf)
 1. In the top-right corner of the repository, click the `Fork` button and select where you want to fork the repository. The repository is now copied to your GitHub account.
 1. Now, navigate to the `llama2` branch in the newly forked repository.
 1. In the top-right corner of the repository, click the `Star` button. This will help you keep track of updates to the original project.
@@ -27,8 +27,17 @@ detail walk through [link from alibaba official blog post](https://www.alibabacl
 ## Step 3: Commit Code and Test Your Changes
 
 1. Access the machine instantiated in Step 2. You can do this via SSH or any remote desktop tool.
+
+
 ![img_2.png](img_2.png)
 ![img_3.png](img_3.png)
+* ssh
+```
+ssh root@{your ecs ip address}
+{your password which you just set}
+```
+* remote desktop:
+![img_4.png](img_4.png)
 1. Once you've accessed the machine, clone your forked repository by running:
    ```
    git clone https://github.com/{Your_GitHub_Username}/chat-with-pdf.git
@@ -46,6 +55,9 @@ detail walk through [link from alibaba official blog post](https://www.alibabacl
    git push origin llama2
    ```
 1. After making your changes, run your code to ensure it works as expected.
+   ```
+   streamlit run app.py
+   ```
 
 ## Conclusion
 

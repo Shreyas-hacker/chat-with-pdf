@@ -1,6 +1,6 @@
 # Panduan Pengembang untuk [Hackerthon](https://resource.alibabacloud.com/event/detail?id=6854)
 
-Dalam panduan ini, kita akan membahas langkah-langkah yang diperlukan untuk melakukan fork, memberi bintang, dan mengembangkan lebih lanjut cabang `llama2` dari proyek `chat-with-pdf` yang dihosting di [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.) Proyek ini adalah chatbot yang didukung oleh LLAMA2 dan [AnalyticDB untuk PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql ) yang dapat meminta PDF.
+Dalam panduan ini, kita akan membahas langkah-langkah yang diperlukan untuk melakukan fork, memberi bintang, dan mengembangkan lebih lanjut cabang `llama2` dari proyek `chat-with-pdf` yang dihosting di [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf) Proyek ini adalah chatbot yang didukung oleh LLAMA2 dan [AnalyticDB untuk PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql ) yang dapat meminta PDF.
 
 ## Prasyarat
 
@@ -11,7 +11,7 @@ Dalam panduan ini, kita akan membahas langkah-langkah yang diperlukan untuk mela
 
 ## Langkah 1: Garpu dan Bintangi Repositori
 
-1. Buka repositori `chat-with-pdf` yang terletak di [https://github.com/daviddhc20120601/chat-with-pdf. ↗](https://github.com/daviddhc20120601/chat-with-pdf.)
+1. Buka repositori `chat-with-pdf` yang terletak di [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf)
 1. Di pojok kanan atas repositori, klik tombol `Fork` dan pilih di mana Anda ingin melakukan fork pada repositori. Repositori sekarang disalin ke akun GitHub Anda.
 1. Sekarang, navigasikan ke cabang `llama2` di repositori yang baru saja di-fork.
 1. Di pojok kanan atas repositori, klik tombol `Bintang`. Ini akan membantu Anda melacak pembaruan ke proyek asli.
@@ -46,7 +46,9 @@ detail berjalan melalui [tautan dari posting blog resmi alibaba](https://www.ali
     git push origin llama2
     ```
 1. Setelah melakukan perubahan, jalankan kode Anda untuk memastikannya berfungsi seperti yang diharapkan.
-
+   ```
+   streamlit run app.py
+   ```
 ## Kesimpulan
 
 Dengan mengikuti langkah-langkah ini, Anda akan memiliki garpu proyek `chat-with-pdf` di cabang `llama2` di akun GitHub Anda. Anda kemudian dapat menjalankan proyek pada instans Alibaba Cloud dan mengembangkan lebih lanjut sesuai kebutuhan Anda untuk Hackathon. Ingatlah untuk melakukan dan mendorong perubahan Anda secara teratur ke repositori Anda untuk memastikan tidak ada pekerjaan yang hilang.
