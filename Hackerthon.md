@@ -60,11 +60,11 @@ ssh root@{your ecs ip address}
    ```
 1. After making your changes, run your code to ensure it works as expected.
    ```
-   export PG_HOST="gp-gs5wsb492l7ijo2k9-master.gpdbmaster.singapore.rds.aliyuncs.com"
+   export PG_HOST=""
    export PG_PORT=5432
-   export PG_DATABASE="aigcpostgres"
-   export PG_USER="aigcpostgres"
-   export PG_PASSWORD="alibabacloud666!"
+   export PG_DATABASE=""
+   export PG_USER=""
+   export PG_PASSWORD="!"
    streamlit run app.py
    ```
    it takes around 1-2 mins to start up the UI
