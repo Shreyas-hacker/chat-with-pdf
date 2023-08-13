@@ -3,21 +3,27 @@
 #sudo -v ; curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
 #ossutil cp -r oss://aigcsg/models--TheBloke--Llama-2-13B-chat-GGML /root/.cache/huggingface/hub/
 
-# upgrade python
+# upgrade python to 3.11
 
-apt remove python3.8 -y
-apt update
-apt install software-properties-common -y
-apt-get install software-properties-common -y
-add-apt-repository ppa:deadsnakes/ppa && apt update
-
-apt install python3.11 -y
-apt install python3.11-dev -y
-apt install python3-pip -y
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
-apt install python3-pip -y
-
+apt remove python3.8 -y &&
+apt update &&
+apt install software-properties-common -y &&
+apt-get install software-properties-common -y &&
+add-apt-repository ppa:deadsnakes/ppa && apt update &&
+apt install python3.11 -y &&
+apt install python3.11-dev -y &&
+apt install python3-pip -y &&
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 &&
+apt install python3-pip -y &&
 apt install python3.11-distutils -y
+
+# install mamba
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" &&
+bash Mambaforge-$(uname)-$(uname -m).sh
+
+# restart shell
+mamba create --name "haidonggpt" python=3.11 &&
+mamba install -y --name "teshaidonggptter" -c conda-forge numpy pandas ipykernel jupyter pip-tools fastapi
 
 # gcc
 

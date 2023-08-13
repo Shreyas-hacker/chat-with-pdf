@@ -20,11 +20,11 @@ def create_app(config_name):
     #  adbpg_user_input, adbpg_pwd_input
     # # Returns `None` if the key doesn't exist
     # print(os.environ.get('KEY_THAT_MIGHT_EXIST'))
-    conn_string = os.environ.get('PG_HOST', 'gp-gs5inp2dl746742muo-master.gpdbmaster.singapore.rds.aliyuncs.com')
-    conn_port = os.environ.get('PG_PORT', '5432')
-    adbpg_database = os.environ.get('PG_DATABASE', 'aigcpostgres')
-    adbpg_user = os.environ.get('PG_USER', 'aigcpostgres')
-    adbpg_passwd = os.environ.get('PG_PASSWORD', 'alibabacloud666!')
+    conn_string = os.environ.get('PG_HOST', '')
+    conn_port = os.environ.get('PG_PORT', '')
+    adbpg_database = os.environ.get('PG_DATABASE', '')
+    adbpg_user = os.environ.get('PG_USER', '')
+    adbpg_passwd = os.environ.get('PG_PASSWORD', '')
 
     adbpg_host_input_global = ""
     adbpg_port_input_global = ""

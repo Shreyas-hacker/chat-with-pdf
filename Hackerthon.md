@@ -54,11 +54,20 @@ ssh root@{your ecs ip address}
    git commit -m "Your commit message"
    git push origin llama2
    ```
+   after you push code, ssh on your remote machine and git pull
+   ```
+   git pull
+   ```
 1. After making your changes, run your code to ensure it works as expected.
    ```
+   export PG_HOST="gp-gs5wsb492l7ijo2k9-master.gpdbmaster.singapore.rds.aliyuncs.com"
+   export PG_PORT=5432
+   export PG_DATABASE="aigcpostgres"
+   export PG_USER="aigcpostgres"
+   export PG_PASSWORD="alibabacloud666!"
    streamlit run app.py
    ```
-
+   it takes around 1-2 mins to start up the UI
 ## Conclusion
 
 By following these steps, you'll have a fork of the `chat-with-pdf` project on the `llama2` branch in your GitHub account. You can then run the project on an Alibaba Cloud instance and develop further as per your requirements for the Hackathon. Remember to regularly commit and push your changes to your repository to ensure no work is lost.
