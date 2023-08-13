@@ -23,7 +23,7 @@ bnb_config = transformers.BitsAndBytesConfig(
 )
 
 # begin initializing HF items, you need an access token
-hf_auth = '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'
+hf_auth = ''
 model_config = transformers.AutoConfig.from_pretrained(
     model_id,
     use_auth_token=hf_auth
@@ -154,8 +154,8 @@ def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input,
 
 chunks = transform_document_into_chunks(loader.load())
 retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
-                  adbpg_host_input="gp-gs5n87cux69xwwh9bo-master.gpdbmaster.singapore.rds.aliyuncs.com", adbpg_port_input = 5432,
-                  adbpg_database_input='aigcpostgres', adbpg_user_input='aigcpostgres', adbpg_pwd_input='alibabacloud666!')
+                  adbpg_host_input="", adbpg_port_input = 5432,
+                  adbpg_database_input='', adbpg_user_input='', adbpg_pwd_input='!')
 
 # from langchain.chains import RetrievalQA
 # qa = RetrievalQA.from_chain_type(
