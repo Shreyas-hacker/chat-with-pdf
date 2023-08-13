@@ -15,7 +15,7 @@ from langchain.vectorstores.base import VectorStoreRetriever
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
-my_openai_api_key = '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'
+my_openai_api_key = ''
 
 
 
