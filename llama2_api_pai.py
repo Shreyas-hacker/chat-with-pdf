@@ -66,7 +66,7 @@ class pai_llama:
         ws.run_forever(ping_interval=2)
         return self.received_message.split('<br/>')[1:]
 
-llama2_pai_client = pai_llama(api_key="MDQzZTdmNTdiY2M5MjYxODg4MjgzZDE3YjgxNWJlMGJlNzE0NjI0NA==")
+llama2_pai_client = pai_llama(api_key="")
 res = llama2_pai_client.generate(
     message="tell me about alibaba cloud PAI", 
     temperature=0.95
