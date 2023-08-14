@@ -1,68 +1,84 @@
-# preview demo video
+# Developer Guide for [Hackerthon](https://resource.alibabacloud.com/event/detail?id=6854)
 
-![img.png](docs/img.png)
-![img_1.png](docs/img_1.png)
-# Step 1 Cloud resources
-## 1.1 create ecs with security group 8501 open
-![img_2.png](docs/img_2.png)
-![img_3.png](docs/img_3.png)
+*author: [David Haidong Chen](https://www.linkedin.com/in/davidhaidongchen/)
 
-### need to create/ select if you have vpc setup
-![img_4.png](docs/img_4.png)
-### create security group
-![img_5.png](docs/img_5.png)
-![img_6.png](docs/img_6.png)
-![img_7.png](docs/img_7.png)
-![img_8.png](docs/img_8.png)
-![img_9.png](docs/img_9.png)
-![img_10.png](docs/img_10.png)
-## 1.2 create adbpg with fastann enabled
-![img_11.png](docs/img_11.png)
-![img_12.png](docs/img_12.png)=
-### this will take a around 10-15 mins, 
-### get the public access endpoint:
-![img_14.png](docs/img_14.png)
-![img_15.png](docs/img_15.png)
-### create admin account
-![img_16.png](docs/img_16.png)
-eg: 
-username: aigcpostgres ,password: alibabacloud666
-![img_17.png](docs/img_17.png)
-### create a database with name: aigcpostgres
-![img_18.png](docs/img_18.png)
-![img_19.png](docs/img_19.png)
-For more information about DMS, please refer to [here](https://www.alibabacloud.com/help/en/data-management-service/latest/log-on-to-a-database).
-### add whitelist ip to 0.0.0.0/0
-![img_20.png](docs/img_20.png)
-![img_21.png](docs/img_21.png)
+In this guide, we'll walk through the steps needed to fork, star, and further develop the `llama2` branch of the `chat-with-pdf` project hosted at [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf) The project is a chatbot powered by LLAMA2 and [AnalyticDB for PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql) that can query a PDF.
 
-# Step 2 env init
-![img_22.png](docs/img_22.png)
+## Prerequisites
 
-```apt update && apt install git -y && apt install unzip -y && apt install docker-compose -y && apt install postgresql -y```
-![img_23.png](docs/img_23.png)
+- A GitHub account
+- An Alibaba Cloud account
+- Basic knowledge of git commands
+- Basic knowledge of Alibaba Cloud Compute Nest components
 
-# Step 3 install packages
-```git clone https://github.com/daviddhc20120601/chat-with-pdf.git && cd chat-with-pdf/```
-![img_24.png](docs/img_24.png)
+## Step 1: Fork and Star the Repository
 
-# Step 4 run the docker
-```cp .devops/Dockerfile . && docker build . -t haidonggpt/front:1.0   && docker run -d -p 8501:8501 haidonggpt/front:1.0```
-![img_25.png](docs/img_25.png)
+1. Navigate to the `chat-with-pdf` repository located at [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf)
+1. In the top-right corner of the repository, click the `Fork` button and select where you want to fork the repository. The repository is now copied to your GitHub account.
+1. Now, navigate to the `llama2` branch in the newly forked repository.
+1. In the top-right corner of the repository, click the `Star` button. This will help you keep track of updates to the original project.
+![img.png](img.png)
+## Step 2: Start the haidong gpt llama2 on Alibaba Cloud Compute Nest Component
 
-# Step 5 insert you token and start using
-![img_26.png](docs/img_26.png)
-## 5.1 chatgpt token:
-[steps](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)
-## 5.2 adbpg host name:gp-gs5inp2dl746742muo-master.gpdbmaster.singapore.rds.aliyuncs.com
-![img_27.png](docs/img_27.png)
-## 5.3 port: 5432
-![img_28.png](docs/img_28.png)
-## 5.4 database name: aigcpostgres
-![img_29.png](docs/img_29.png)
-## 5.5 adb pg username: aigcpostgres
+detail walk through [link from alibaba official blog post](https://www.alibabacloud.com/blog/600282)
 
-## 5.6 adb pg password: alibabacloud666
-# step 6 my token and credentials are invalidated and revoked,they are just a demo purpose to show you what are they look like. Do not try to use it , it is a waste of time
+1. Log into your Alibaba Cloud account.
+1. Navigate to the Compute Nest component section.
+1. Start the "llama2 adbpg" alias "Haidong gpt 300753". This will instantiate a new virtual machine in your Alibaba Cloud account.
+![img_1.png](img_1.png)
+## Step 3: Commit Code and Test Your Changes
 
-this is working for 768
+1. Access the machine instantiated in Step 2. You can do this via SSH or any remote desktop tool.
+
+
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+* ssh
+```
+ssh root@{your ecs ip address}
+{your password which you just set}
+```
+* remote desktop:
+![img_4.png](img_4.png)
+1. Once you've accessed the machine, clone your forked repository by running:
+   ```
+   git clone https://github.com/{Your_GitHub_Username}/chat-with-pdf.git
+   ```
+   Replace `{Your_GitHub_Username}` with your actual GitHub username.
+1. Navigate to the cloned repository and switch to the `llama2` branch:
+   ```
+   cd chat-with-pdf
+   git checkout llama2
+   ```
+1. Now you can start developing and adding your changes to the project. Remember to frequently commit and push your changes to your GitHub repository:
+   ```
+   git add .
+   git commit -m "Your commit message"
+   git push origin llama2
+   ```
+   after you push code, ssh on your remote machine and git pull
+   ```
+   git pull
+   ```
+1. After making your changes, run your code to ensure it works as expected.
+   ```
+   export PG_HOST=""
+   export PG_PORT=5432
+   export PG_DATABASE=""
+   export PG_USER=""
+   export PG_PASSWORD="!"
+   streamlit run app.py
+   ```
+   it takes around 1-2 mins to start up the UI
+## Conclusion
+
+By following these steps, you'll have a fork of the `chat-with-pdf` project on the `llama2` branch in your GitHub account. You can then run the project on an Alibaba Cloud instance and develop further as per your requirements for the Hackathon. Remember to regularly commit and push your changes to your repository to ensure no work is lost.
+
+Happy coding!
+
+## reference
+[README_walkthough.md](README_walkthough.md)
+
+
+[README_legacy.md](README_legacy.md)
+
