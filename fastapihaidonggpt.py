@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import os
-from typing import Annotated
-from fastapi import FastAPI,Body
+
+from fastapi import FastAPI
 from pydantic import BaseModel,Field
 from src.helpers.utils import get_text, setup, get_file_path, generate_response
 class User_input(BaseModel):
@@ -26,7 +26,7 @@ class User_input(BaseModel):
 app = FastAPI()
 
 @app.post("haidonggpt_api")
-def inference(input:Annotated[User_input,Body(embed=True)]):
+def inference(input:User_input):
     NUMBER_OF_RELEVANT_CHUNKS = 2
     CHAIN_TYPE = 'stuff'
     host = os.environ.get("PG_HOST", "adbpg_host_input"),
