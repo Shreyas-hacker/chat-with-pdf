@@ -40,4 +40,4 @@ def inference(input:User_input):
               adbpg_pwd_input=password)
     return generate_response(input.query,chain_type=CHAIN_TYPE,retriever=s,open_ai_token="")
 
-# uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0
+# pull up command: uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0
