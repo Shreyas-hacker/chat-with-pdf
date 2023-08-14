@@ -10,7 +10,7 @@ class User_input(BaseModel):
 
 app = FastAPI()
 
-@app.post("haidonggpt/api")
+@app.post("haidonggpt_api")
 def inference(input:User_input):
     NUMBER_OF_RELEVANT_CHUNKS = 2
     CHAIN_TYPE = 'stuff'
