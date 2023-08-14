@@ -1,5 +1,7 @@
 # Panduan Pengembang untuk [Hackerthon](https://resource.alibabacloud.com/event/detail?id=6854)
 
+*author: [David Haidong Chen](https://www.linkedin.com/in/davidhaidongchen/)
+
 Dalam panduan ini, kita akan membahas langkah-langkah yang diperlukan untuk melakukan fork, memberi bintang, dan mengembangkan lebih lanjut cabang `llama2` dari proyek `chat-with-pdf` yang dihosting di [https://github.com/daviddhc20120601/chat-with-pdf ↗](https://github.com/daviddhc20120601/chat-with-pdf) Proyek ini adalah chatbot yang didukung oleh LLAMA2 dan [AnalyticDB untuk PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql ) yang dapat meminta PDF.
 
 ## Prasyarat
@@ -47,6 +49,11 @@ detail berjalan melalui [tautan dari posting blog resmi alibaba](https://www.ali
     ```
 1. Setelah melakukan perubahan, jalankan kode Anda untuk memastikannya berfungsi seperti yang diharapkan.
    ```
+   export PG_HOST=""
+   export PG_PORT=5432
+   export PG_DATABASE=""
+   export PG_USER=""
+   export PG_PASSWORD="!"
    streamlit run app.py
    ```
 ## Kesimpulan
