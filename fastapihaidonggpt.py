@@ -12,8 +12,8 @@ class User_input(BaseModel):
     file_path: str| None = Field(
         default="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
     )
-    model_config = {
-        "json_schema_extra": {
+    class config:
+        schema_extra = {
             "examples": [
                 {
                     "query": "who is david haidong chen?",
@@ -21,7 +21,7 @@ class User_input(BaseModel):
                 }
             ]
         }
-    }
+
 
 app = FastAPI()
 
