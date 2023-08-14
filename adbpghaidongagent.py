@@ -8,7 +8,7 @@ from langchain.agents import AgentExecutor
 from langchain.agents.agent_types import AgentType
 from langchain.chat_models import ChatOpenAI
 
-from init_llama2_medium import llmLlama2
+import init_llama2_medium
 from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 
 connectionstring = AnalyticDBhaidong.connection_string_from_db_params(
