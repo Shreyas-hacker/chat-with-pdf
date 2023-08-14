@@ -7,10 +7,10 @@ from pydantic import BaseModel,Field
 from src.helpers.utils import get_text, setup, get_file_path, generate_response
 class User_input(BaseModel):
     query: str | None = Field(
-        default="who is david haidong chen", title="the querstion you wanna ask", max_length=300
+        example="who is david haidong chen", title="the querstion you wanna ask", max_length=300
     )
     file_path: str| None = Field(
-        default="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
+        example="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
     )
 
 
