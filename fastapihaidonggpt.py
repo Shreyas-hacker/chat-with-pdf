@@ -7,12 +7,21 @@ from pydantic import BaseModel,Field
 from src.helpers.utils import get_text, setup, get_file_path, generate_response
 class User_input(BaseModel):
     query: str | None = Field(
-        example="who is david haidong chen", title="the querstion you wanna ask", max_length=300
+        default="who is david haidong chen", title="the querstion you wanna ask", max_length=300
     )
     file_path: str| None = Field(
-        example="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
+        default="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
     )
-
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "query": "who is david haidong chen?",
+                    "file_path": "/tmp/tmpzbyyn24f.pdf",
+                }
+            ]
+        }
+    }
 
 app = FastAPI()
 
