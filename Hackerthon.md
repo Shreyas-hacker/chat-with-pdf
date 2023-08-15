@@ -63,7 +63,7 @@ ssh root@{your ecs ip address}
 1. After making your changes, run your code to ensure it works as expected.
    ```
    export PG_HOST=""
-   export PG_PORT=5432
+   export PG_PORT="5432"
    export PG_DATABASE=""
    export PG_USER=""
    export PG_PASSWORD="!"
