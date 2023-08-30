@@ -10,7 +10,7 @@ class Config:
     # $\\left(\\Large{Chat with PDF 📃}\\right)$
     # """
     TITLE = """
-        $\\left(\\Large{Chat with PDF 📃}\\right)$
+        $\\left(\\Large{DoctorGPT}\\right)$
         """
     ALLOW_MULTIPLE_FILES = False
     ALLOWED_FILE_EXTENSION = 'pdf'

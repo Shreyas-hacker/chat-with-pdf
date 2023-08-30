@@ -97,7 +97,7 @@ from langchain.llms import HuggingFacePipeline
 
 llmLlama2 = HuggingFacePipeline(pipeline=generate_text)
 
-prompt = "Write a linear regression in python"
+prompt = "i have covid, what medicine shall i take"
 prompt_template = f'''SYSTEM: You are a helpful, respectful and honest assistant. Always answer as helpfully.
 
 USER: {prompt}
@@ -109,7 +109,7 @@ template = """USER: {question}
 ASSISTANT: Let's work this out in a step by step way to be sure we have the right answer."""
 prompt = PromptTemplate(template=template, input_variables=["question"])
 
-question = "Write a linear regression in python"
+question = "i have covid, what medicine shall i take"
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 print(llm_chain.run(question))
 
@@ -153,7 +153,7 @@ print(llm_chain.run(question))
 #     db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
 #     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
-chunks = transform_document_into_chunks(loader.load())
+# chunks = transform_document_into_chunks(loader.load())
 # retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
 #                   adbpg_host_input="", adbpg_port_input = 5432,
 #                   adbpg_database_input='', adbpg_user_input='', adbpg_pwd_input='!')
@@ -172,7 +172,7 @@ chunks = transform_document_into_chunks(loader.load())
 
 from langchain.chains import ConversationalRetrievalChain
 chat_history = []
-chain = ConversationalRetrievalChain.from_llm(llmLlama2, return_source_documents=True)
+chain = ConversationalRetrievalChain.from_llm(llmLlama2)
 query = "who is david haidong chen"
 result = chain({"question": query, "chat_history": chat_history})
 
