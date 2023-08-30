@@ -115,48 +115,48 @@ print(llm_chain.run(question))
 
 
 
-fp = "test.pdf"
+# fp = "test.pdf"
+#
+# ALLOW_MULTIPLE_FILES = False
+# ALLOWED_FILE_EXTENSION = 'pdf'
+# EXCERPT_LENGTH = 300
+# VERTICAL_SPACING = 2
+# NUMBER_OF_RELEVANT_CHUNKS = 2
+# CHAIN_TYPE = 'stuff'
+# WIDTH = "50"
+# HEIGHT = "60"
+#
+# file=fp
+# loader = PyPDFLoader(file)
+# def transform_document_into_chunks(document):
+#     """Transform document into chunks of {1000} tokens"""
+#     splitter = CharacterTextSplitter(
+#         chunk_size=int(os.environ.get('CHUNK_SIZE', 500)),
+#         chunk_overlap=int(os.environ.get('CHUNK_OVERLAP', 0))
+#     )
+#     return splitter.split_documents(document)
 
-ALLOW_MULTIPLE_FILES = False
-ALLOWED_FILE_EXTENSION = 'pdf'
-EXCERPT_LENGTH = 300
-VERTICAL_SPACING = 2
-NUMBER_OF_RELEVANT_CHUNKS = 2
-CHAIN_TYPE = 'stuff'
-WIDTH = "50"
-HEIGHT = "60"
-
-file=fp
-loader = PyPDFLoader(file)
-def transform_document_into_chunks(document):
-    """Transform document into chunks of {1000} tokens"""
-    splitter = CharacterTextSplitter(
-        chunk_size=int(os.environ.get('CHUNK_SIZE', 500)),
-        chunk_overlap=int(os.environ.get('CHUNK_OVERLAP', 0))
-    )
-    return splitter.split_documents(document)
-
-def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) :
-    """Transform chunks into embeddings"""
-    CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
-        driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
-        host=os.environ.get("PG_HOST", adbpg_host_input),
-        port=int(os.environ.get("PG_PORT", adbpg_port_input)),
-        database=os.environ.get("PG_DATABASE", adbpg_database_input),
-        user=os.environ.get("PG_USER", adbpg_user_input),
-        password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
-    )
-
-    # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
-    embeddings = embeddingsllama2
-
-    db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
-    return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
+# def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) :
+#     """Transform chunks into embeddings"""
+#     CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
+#         driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
+#         host=os.environ.get("PG_HOST", adbpg_host_input),
+#         port=int(os.environ.get("PG_PORT", adbpg_port_input)),
+#         database=os.environ.get("PG_DATABASE", adbpg_database_input),
+#         user=os.environ.get("PG_USER", adbpg_user_input),
+#         password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
+#     )
+#
+#     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
+#     embeddings = embeddingsllama2
+#
+#     db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+#     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 chunks = transform_document_into_chunks(loader.load())
-retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
-                  adbpg_host_input="", adbpg_port_input = 5432,
-                  adbpg_database_input='', adbpg_user_input='', adbpg_pwd_input='!')
+# retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
+#                   adbpg_host_input="", adbpg_port_input = 5432,
+#                   adbpg_database_input='', adbpg_user_input='', adbpg_pwd_input='!')
 
 # from langchain.chains import RetrievalQA
 # qa = RetrievalQA.from_chain_type(
@@ -172,7 +172,7 @@ retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, 
 
 from langchain.chains import ConversationalRetrievalChain
 chat_history = []
-chain = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
+chain = ConversationalRetrievalChain.from_llm(llmLlama2, return_source_documents=True)
 query = "who is david haidong chen"
 result = chain({"question": query, "chat_history": chat_history})
 
