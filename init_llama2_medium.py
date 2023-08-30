@@ -170,11 +170,13 @@ print(llm_chain.run(question))
 # result = qa({'query': query})
 # print(result)
 
-from langchain.chains import ConversationalRetrievalChain
+from langchain.chains import ConversationChain
+from langchain.chains.conversation.memory import ConversationBufferMemory
+
 chat_history = []
-chain = ConversationalRetrievalChain.from_llm(llmLlama2)
+chain = ConversationChain(llmLlama2,memory=ConversationBufferMemory())
 query = "who is david haidong chen"
-result = chain({"question": query, "chat_history": chat_history})
+result = chain({"question": query})
 
 print(result['answer'])
 
