@@ -88,11 +88,11 @@ generate_text = transformers.pipeline(
 # res = generate_text("Explain me the difference between Data Lakehouse and Data Warehouse.")
 # print(res[0]["generated_text"])
 
-from langchain.embeddings import HuggingFaceEmbeddings
+# from langchain.embeddings import HuggingFaceEmbeddings
 
-embeddingsllama2 = HuggingFaceEmbeddings(model_name="sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
-# full size working embedding: sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja
-# half size working embedding: sentence-transformers/all-mpnet-base-v2
+# embeddingsllama2 = HuggingFaceEmbeddings(model_name="sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
+# # full size working embedding: sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja
+# # half size working embedding: sentence-transformers/all-mpnet-base-v2
 from langchain.llms import HuggingFacePipeline
 
 llmLlama2 = HuggingFacePipeline(pipeline=generate_text)
