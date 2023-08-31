@@ -174,7 +174,7 @@ from langchain.chains import ConversationChain
 from langchain.chains.conversation.memory import ConversationBufferMemory
 
 chat_history = []
-chain = ConversationChain(llmLlama2)
+chain = ConversationChain(llm=llmLlama2)
 query = "who is david haidong chen"
 result = chain({"question": query})
 
