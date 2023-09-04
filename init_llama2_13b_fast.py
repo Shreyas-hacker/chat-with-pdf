@@ -1,7 +1,7 @@
 
 from torch import cuda, bfloat16
 
-model_id = 'TheBloke/OpenAssistant-Llama2-13B-Orca-8K-3319-GPTQ' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
+model_id = 'OpenAssistant/llama2-13b-orca-8k-3319' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
 device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 
