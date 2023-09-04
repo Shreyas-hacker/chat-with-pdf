@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 from streamlit_extras.colored_header import colored_header
 from config.default import config
-from src.helpers.utils import get_text, setup, get_file_path, generate_response
+from src.helpers.utils import  generate_response
 import os
 open_api_token_global = ""
 def create_app(config_name):
