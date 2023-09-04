@@ -19,10 +19,6 @@ model = AutoModelForCausalLM.from_pretrained(
       **config
       )
 
-# tokens = model.tokenize(prompt)
-# model.eval()
-#
-# print(f"Model loaded on {device}")
 
 prompt_template = """
 <|bot|> You are an e-commerce seller who is listing a product on an e-commerce platform and please provide the answer about product in json format based on product information which user inputed
@@ -37,12 +33,3 @@ prompt_001 = prompt_template + user_input_001
 print(user_input_001)
 print(model(prompt_001, stream=False))
 
-# user_input_001 = "<|user-message|>  This is Nike running shoes made with breathable materials and stylish design. It's avaialble in blue and red and sizes from 38 to 42"
-# prompt_001 = prompt_template + user_input_001
-# print(user_input_001)
-# print(model(prompt_001, stream=False))
-#
-# user_input_001 = "<|user-message|>  This is SK-II essence suitable for both dry skin and oily skin. It's good for whitening and anti-aging.  It's available in 30ml package and 50ml package"
-# prompt_001 = prompt_template + user_input_001
-# print(user_input_001)
-# print(model(prompt_001, stream=False))
