@@ -8,7 +8,7 @@ The title should not exceed 20 words. Descriptions can be based on input text wi
 """
 
 
-model_id = 'togethercomputer/LLaMA-2-7B-32K' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
+model_id = 'TheBloke/Llama-2-13B-chat-GGML' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
 device = f'cuda:{torch.cuda.current_device()}' if torch.cuda.is_available() else 'cpu'
 
