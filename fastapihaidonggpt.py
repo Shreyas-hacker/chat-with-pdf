@@ -3,10 +3,12 @@ from __future__ import annotations
 import os
 
 from fastapi import FastAPI
-from pydantic import BaseModel,Field
+from pydantic import BaseModel, Field
 from init_llama2_13b_fast import model
+
+
 class User_input(BaseModel):
-    query: str | None = Field(
+    query: str  = Field(
         default="who is david haidong chen", title="the querstion you wanna ask", max_length=300
     )
 
@@ -33,9 +35,8 @@ The title should not exceed 20 words and contain the main features and uses. des
 """
 
 
-
 @app.post("/haidonggpt_api")
-def inference(input:User_input):
+def inference(input: User_input):
     return model(prompt_template + input.query, stream=False)
 
 # pull up command: uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0
