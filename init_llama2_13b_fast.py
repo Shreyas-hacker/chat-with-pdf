@@ -7,7 +7,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from torch import cuda, bfloat16
 import transformers
 
-from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
+# from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 
 model_id = 'TheBloke/Llama-2-13B-chat-GGML' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b

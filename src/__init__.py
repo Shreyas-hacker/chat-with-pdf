@@ -91,7 +91,7 @@ def create_app(config_name):
         # s = setup(file=fp, number_of_relevant_chunk=cf.NUMBER_OF_RELEVANT_CHUNKS, open_ai_token=open_api_token_global,
         #           adbpg_host_input=adbpg_host_input_global, adbpg_port_input = adbpg_port_input_global,
         #           adbpg_database_input=adbpg_database_input_global, adbpg_user_input=adbpg_user_input_global, adbpg_pwd_input=adbpg_pwd_input_global)
-        st.text_input('🤖 666 👋🏾, Ask me anything about the uploaded pdf', key='widget', on_change=submit)
+        st.text_input('🤖 666 👋🏾, Ask me anything', key='widget', on_change=submit)
         with response_container:
             if st.session_state.user_input:
                 response = generate_response(st.session_state.user_input)
