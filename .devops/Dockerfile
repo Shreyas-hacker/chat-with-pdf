@@ -26,7 +26,7 @@ COPY requirments.txt .
 # Install pipenv and compilation dependencies
 #RUN pip install -U setuptools pip pipenv
 #RUN pipenv install --system --deploy
-RUN pip3 install -r requirments.txt
+RUN pip install -r requirments.txt
 
 # Copy project on mac
 #COPY .. .
