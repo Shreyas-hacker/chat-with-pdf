@@ -12,19 +12,19 @@ model_id = 'togethercomputer/LLaMA-2-7B-32K' # daryl149/llama-2-7b-chat-hf worki
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
 device = f'cuda:{torch.cuda.current_device()}' if torch.cuda.is_available() else 'cpu'
 
-# from ctransformers import AutoModelForCausalLM
-#
-# # check ctransformers doc for more configs
-# config = {'max_new_tokens': 512, 'repetition_penalty': 1.1,
-#           'temperature': 0.1, 'stream': True}
-#
-# model = AutoModelForCausalLM.from_pretrained(
-#       model_id,
-#       model_type="llama",
-#       #lib='avx2', for cpu use
-#       gpu_layers=130, #110 for 7b, 130 for 13b
-#       **config
-#       )
+from ctransformers import AutoModelForCausalLM
+
+# check ctransformers doc for more configs
+config = {'max_new_tokens': 512, 'repetition_penalty': 1.1,
+          'temperature': 0.1, 'stream': True}
+
+model = AutoModelForCausalLM.from_pretrained(
+      model_id,
+      model_type="llama",
+      #lib='avx2', for cpu use
+      gpu_layers=130, #110 for 7b, 130 for 13b
+      **config
+      )
 
 prompt_001 = """
 <s> [INST] <<SYS>>You are an e-commerce seller who is listing a product on an e-commerce platform and required to give me the result about product in json format based on product information inputed
@@ -32,7 +32,7 @@ prompt_001 = """
 The title should not exceed 20 words. Descriptions can be based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple. Specifications can't be empty. <</SYS>>
 """
 
-# print(model(prompt_001, stream=False))
+print(model(prompt_001, stream=False))
 
 
 ###############
@@ -50,13 +50,13 @@ The title should not exceed 20 words. Descriptions can be based on input text wi
 # print(tokenizer.decode(output[0], skip_special_tokens=True))
 
 ###############
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-tokenizer = AutoTokenizer.from_pretrained("togethercomputer/LLaMA-2-7B-32K")
-model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K", trust_remote_code=True, torch_dtype=torch.bfloat16)
-
-input_context = prompt_001
-input_ids = tokenizer.encode(input_context, return_tensors="pt")
-output = model.generate(input_ids, max_length=256, temperature=0.7)
-output_text = tokenizer.decode(output[0], skip_special_tokens=True)
-print(output_text)
+# from transformers import AutoTokenizer, AutoModelForCausalLM
+#
+# tokenizer = AutoTokenizer.from_pretrained("togethercomputer/LLaMA-2-7B-32K")
+# model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K", trust_remote_code=True, torch_dtype=torch.bfloat16)
+#
+# input_context = prompt_001
+# input_ids = tokenizer.encode(input_context, return_tensors="pt")
+# output = model.generate(input_ids, max_length=256, temperature=0.7)
+# output_text = tokenizer.decode(output[0], skip_special_tokens=True)
+# print(output_text)
