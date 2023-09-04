@@ -6,10 +6,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from init_llama2_13b_fast import model
 
+prompt_template = """
+<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed.
+
+{\"title\":\"\",\"description\":\"\",\"brand\":\"\",\"category\":\"\",\"variant\":{\"color\":[\"Space Grey\“,\”black\“]},\”specifications\”:{\”display\”:[\”5.7 inches\”]}} 
+
+The title should not exceed 20 words and contain the main features and uses. descriptions can be based on input text and your own knowledge base, with a length between 200 and 250 words. variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+
+"""
 
 class User_input(BaseModel):
     query: str  = Field(
-        default="<|user-message|>  This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB.", title="the querstion you wanna ask", max_length=300
+        default=prompt_template + "<|user-message|>  This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB.", title="the querstion you wanna ask", max_length=300
     )
 
     class config:
@@ -25,18 +33,12 @@ class User_input(BaseModel):
 
 app = FastAPI()
 
-prompt_template = """
-<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed.
 
-{\"title\":\"\",\"description\":\"\",\"brand\":\"\",\"category\":\"\",\"variant\":{\"color\":[\"Space Grey\“,\”black\“]},\”specifications\”:{\”display\”:[\”5.7 inches\”]}} 
-
-The title should not exceed 20 words and contain the main features and uses. descriptions can be based on input text and your own knowledge base, with a length between 200 and 250 words. variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
-
-"""
 
 
 @app.post("/haidonggpt_api")
 def inference(input: User_input):
-    return model(prompt_template + input.query, stream=False)
+    ans = model(prompt_template + input.query, stream=False)
+    return ans.split("{")
 
 # pull up command: uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0
