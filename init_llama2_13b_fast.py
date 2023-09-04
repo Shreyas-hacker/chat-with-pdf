@@ -25,11 +25,15 @@ model = AutoModelForCausalLM.from_pretrained(
 # print(f"Model loaded on {device}")
 
 prompt_template = """
-<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed. donot answer anything that is not a json.
+<|bot|> You are an e-commerce seller who is listing a product on an e-commerce platform and required to give me the result about product in json format based on product information inputed
 
 {"title":"","description":"","brand":"","category":"","variant":{"key":["value"]},"specifications":{"key":["value"]}}
 
-The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. 
+
+Variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+
+Specifications can't be empty. the product inputed delimited by backticks listed
 
 """
 
