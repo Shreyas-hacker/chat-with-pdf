@@ -9,7 +9,7 @@ from init_llama2_13b_fast import model
 
 class User_input(BaseModel):
     query: str  = Field(
-        default="who is david haidong chen", title="the querstion you wanna ask", max_length=300
+        default="<|user-message|>  This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB.", title="the querstion you wanna ask", max_length=300
     )
 
     class config:
