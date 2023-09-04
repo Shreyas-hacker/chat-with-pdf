@@ -13,3 +13,4 @@ huggingface_hub
 llama-cpp-python
 sentence_transformers
 bitsandbytes
+ctransformers
