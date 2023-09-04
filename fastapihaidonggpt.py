@@ -7,9 +7,9 @@ from pydantic import BaseModel, Field
 from init_llama2_13b_fast import model
 
 prompt_template = """
-<s> [INST] <<SYS>> You are an e-commerce seller who is listing a product on an e-commerce platform and required to give me the result about product in json format based on product information inputed
+<s> [INST] <<SYS>>You are an e-commerce seller who is listing a product on an e-commerce platform and required to give me the result about product in json format based on product information inputed
 {”title”:””,”description":"","brand":"","category":"","variant":{"key":["value"]},"specifications":{"key":["value"]}} 
-The title should not exceed 20 words and contain the main features and uses. descriptions can be based on input text and your own knowledge base, with a length between 200 and 250 words. variant should be physical attributes of product and the value of each variant can be multiple.specifications can't be empty. the product inputed delimited by backticks listed<</SYS>>
+The title should not exceed 20 words. Descriptions can be based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple. Specifications can't be empty. <</SYS>>
 """
 
 class User_input(BaseModel):
