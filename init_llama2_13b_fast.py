@@ -29,11 +29,21 @@ prompt_template = """
 
 {\"title\":\"\",\"description\":\"\",\"brand\":\"\",\"category\":\"\",\"variant\":{\"color\":[\"Space Grey\“,\”black\“]},\”specifications\”:{\”display\”:[\”5.7 inches\”]}} 
 
-The title should not exceed 20 words and contain the main features and uses. descriptions can be based on input text and your own knowledge base, with a length between 200 and 250 words. variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
 
 """
 
-user_input = "<|user-message|>  This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB."
+user_input_001 = "<|user-message|>  This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB."
+prompt_001 = prompt_template + user_input_001
+print(user_input_001)
+print(model(prompt_001, stream=False))
 
-prompt_001 = prompt_template + user_input
+user_input_001 = "<|user-message|>  This is Nike running shoes made with breathable materials and stylish design. It's avaialble in blue and red and sizes from 38 to 42"
+prompt_001 = prompt_template + user_input_001
+print(user_input_001)
+print(model(prompt_001, stream=False))
+
+user_input_001 = "<|user-message|>  This is SK-II essence suitable for both dry skin and oily skin. It's good for whitening and anti-aging.  It's available in 30ml package and 50ml package"
+prompt_001 = prompt_template + user_input_001
+print(user_input_001)
 print(model(prompt_001, stream=False))
