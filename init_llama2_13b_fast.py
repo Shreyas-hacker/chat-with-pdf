@@ -28,7 +28,7 @@ prompt_template = """
 <|bot|> give me the result about product on e-commerence platform in json format based on product information inputed. donot answer anything that is not a json.
 {"title":"","description":"","brand":"","category":"","variant":{"key":["value"]},"specifications":{"key":["value"]}}
 
-The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple.For example, for clothing and shoes, it is usually the colour and sizes while for smartphones it's usually the colour and memory storage. And for groceries, it's usually the volume or net weight. Attributes to define variants should not exceed 2. specifications like size of screen of a phone.
+The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
 
 """
 
@@ -37,12 +37,12 @@ prompt_001 = prompt_template + user_input_001
 print(user_input_001)
 print(model(prompt_001, stream=False))
 
-user_input_001 = "<|user-message|>  This is Nike running shoes made with breathable materials and stylish design. It's avaialble in blue and red and sizes from 38 to 42"
-prompt_001 = prompt_template + user_input_001
-print(user_input_001)
-print(model(prompt_001, stream=False))
-
-user_input_001 = "<|user-message|>  This is SK-II essence suitable for both dry skin and oily skin. It's good for whitening and anti-aging.  It's available in 30ml package and 50ml package"
-prompt_001 = prompt_template + user_input_001
-print(user_input_001)
-print(model(prompt_001, stream=False))
+# user_input_001 = "<|user-message|>  This is Nike running shoes made with breathable materials and stylish design. It's avaialble in blue and red and sizes from 38 to 42"
+# prompt_001 = prompt_template + user_input_001
+# print(user_input_001)
+# print(model(prompt_001, stream=False))
+#
+# user_input_001 = "<|user-message|>  This is SK-II essence suitable for both dry skin and oily skin. It's good for whitening and anti-aging.  It's available in 30ml package and 50ml package"
+# prompt_001 = prompt_template + user_input_001
+# print(user_input_001)
+# print(model(prompt_001, stream=False))
