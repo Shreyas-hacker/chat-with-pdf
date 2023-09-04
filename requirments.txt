@@ -1,9 +1,9 @@
 langchain==0.0.216
 cffi
 openai==0.27.8
-python3-cffi
-psycopg2cffi==2.9.0
-pypdf==3.11.0
+# python3-cffi
+# psycopg2cffi==2.9.0
+# pypdf==3.11.0
 python-dotenv==1.0.0
 streamlit==1.24.0
 streamlit-chat==0.1.1
