@@ -1,5 +1,5 @@
 
-from torch import cuda, bfloat16
+import torch
 
 prompt_001 = """
 <s> [INST] <<SYS>>You are an e-commerce seller who is listing a product on an e-commerce platform and required to give me the result about product in json format based on product information inputed
@@ -10,7 +10,7 @@ The title should not exceed 20 words. Descriptions can be based on input text wi
 
 model_id = 'togethercomputer/LLaMA-2-7B-32K' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
-device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
+device = f'cuda:{torch.cuda.current_device()}' if torch.cuda.is_available() else 'cpu'
 
 # from ctransformers import AutoModelForCausalLM
 #
@@ -53,7 +53,7 @@ The title should not exceed 20 words. Descriptions can be based on input text wi
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 tokenizer = AutoTokenizer.from_pretrained("togethercomputer/LLaMA-2-7B-32K")
-model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K", trust_remote_code=True, torch_dtype=torch.float16)
+model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K", trust_remote_code=True, torch_dtype=torch.bfloat16)
 
 input_context = prompt_001
 input_ids = tokenizer.encode(input_context, return_tensors="pt")
