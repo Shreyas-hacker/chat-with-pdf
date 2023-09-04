@@ -13,7 +13,7 @@ WORKDIR /app
 
 # Update apt-get and install gcc
 #RUN apt-get update && apt-get install apt-utils && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y --no-install-recommends gcc && apt install python3 -y && apt install python-pip -y
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && apt install python3 -y && apt install python3-pip -y
 
 # install pg_config
 #RUN apt-get update && apt-get install wget ca-certificates -y && apt-get install -y gnupg2
