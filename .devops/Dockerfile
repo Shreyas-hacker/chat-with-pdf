@@ -1,4 +1,4 @@
-FROM python:3.11.2
+FROM nvidia/cuda:11.8.0-base-ubuntu22.04
 LABEL authors="hdc"
 
 # Setup env
