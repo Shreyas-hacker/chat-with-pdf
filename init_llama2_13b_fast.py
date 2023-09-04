@@ -8,7 +8,7 @@ device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 from ctransformers import AutoModelForCausalLM
 
 # check ctransformers doc for more configs
-config = {'max_new_tokens': 256, 'repetition_penalty': 1.1,
+config = {'max_new_tokens': 512, 'repetition_penalty': 1.1,
           'temperature': 0.1, 'stream': True}
 
 model = AutoModelForCausalLM.from_pretrained(
