@@ -25,7 +25,7 @@ model = AutoModelForCausalLM.from_pretrained(
 # print(f"Model loaded on {device}")
 
 prompt_template = """
-<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed.
+<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed. donot answer anything that is not a json.
 
 {\"title\":\"\",\"description\":\"\",\"brand\":\"\",\"category\":\"\",\"variant\":{\"color\":[\"Space Grey\“,\”black\“]},\”specifications\”:{\”display\”:[\”5.7 inches\”]}} 
 
