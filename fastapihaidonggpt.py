@@ -4,20 +4,24 @@ import os
 
 from fastapi import FastAPI
 from pydantic import BaseModel,Field
-from src.helpers.utils import get_text, setup, get_file_path, generate_response
+from init_llama2_13b_fast import model
 class User_input(BaseModel):
     query: str | None = Field(
         default="who is david haidong chen", title="the querstion you wanna ask", max_length=300
     )
-    file_path: str| None = Field(
-        default="/tmp/tmpzbyyn24f.pdf", title="file path of your pdf", max_length=300
-    )
+
     class config:
         schema_extra = {
             "examples": [
                 {
-                    "query": "who is david haidong chen?",
-                    "file_path": "/tmp/tmpzbyyn24f.pdf",
+                    "query": """<|bot|> give me the result about product on e-commerence platform in json format based on product information inputed.
+
+{\"title\":\"\",\"description\":\"\",\"brand\":\"\",\"category\":\"\",\"variant\":{\"color\":[\"Space Grey\“,\”black\“]},\”specifications\”:{\”display\”:[\”5.7 inches\”]}} 
+
+The title should not exceed 20 words and contain the main features and uses. descriptions can be based on input text and your own knowledge base, with a length between 200 and 250 words. variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+<|user-message|> This is a Xiaomi 13 Ultra smartphone with 5.7 inches display of FHD resolution. It's available in space grey and black with storage from 256GB to 1TB.
+""",
+
                 }
             ]
         }
@@ -27,17 +31,6 @@ app = FastAPI()
 
 @app.post("/haidonggpt_api")
 def inference(input:User_input):
-    NUMBER_OF_RELEVANT_CHUNKS = 2
-    CHAIN_TYPE = 'stuff'
-    host = os.environ.get("PG_HOST", "adbpg_host_input"),
-    port = int(os.environ.get("PG_PORT", "adbpg_port_input")),
-    database = os.environ.get("PG_DATABASE", "adbpg_database_input"),
-    user = os.environ.get("PG_USER", "adbpg_user_input"),
-    password = os.environ.get("PG_PASSWORD", "adbpg_pwd_input")
-    s = setup(file=input.file_path, number_of_relevant_chunk=NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="",
-              adbpg_host_input=host, adbpg_port_input=port,
-              adbpg_database_input=database, adbpg_user_input=user,
-              adbpg_pwd_input=password)
-    return generate_response(input.query,chain_type=CHAIN_TYPE,retriever=s,open_ai_token="")
+    return model(input.query, stream=False)
 
 # pull up command: uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0

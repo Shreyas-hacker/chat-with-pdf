@@ -19,10 +19,10 @@ model = AutoModelForCausalLM.from_pretrained(
       **config
       )
 
-
-model.eval()
+# tokens = model.tokenize(prompt)
+# model.eval()
 #
-print(f"Model loaded on {device}")
+# print(f"Model loaded on {device}")
 
 test_001 = """
 <|bot|> give me the result about product on e-commerence platform in json format based on product information inputed.
