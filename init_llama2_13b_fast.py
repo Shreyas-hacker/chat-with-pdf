@@ -28,7 +28,7 @@ prompt_template = """
 <|bot|> give me the result about product on e-commerence platform in json format based on product information inputed. donot answer anything that is not a json.
 {"title":"","description":"","brand":"","category":"","variant":{"key":["value"]},"specifications":{"key":["value"]}}
 
-The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple specifications like size of screen of a phone.
+The title should not exceed 20 words and contain the main features and uses. Descriptions is based on input text with a length between 200 and 250 words. Variant should be physical attributes of product and the value of each variant can be multiple.For example, for clothing and shoes, it is usually the colour and sizes while for smartphones it's usually the colour and memory storage. And for groceries, it's usually the volume or net weight. Attributes to define variants should not exceed 2. specifications like size of screen of a phone.
 
 """
 
