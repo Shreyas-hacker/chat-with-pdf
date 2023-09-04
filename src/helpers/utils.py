@@ -31,7 +31,7 @@ def generate_response(query: str) -> dict[str, Any]:
         result = model(query, stream=False)
         pprint.pprint(result)
 
-    return result
+    return {"answer":result}
 
 
 
