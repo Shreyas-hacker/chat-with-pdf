@@ -41,6 +41,8 @@ $ cd chat-with-pdf  # cd into project root
 $ pipenv install # install dependencies
 $ pipenv shell  # activate virtualenv
 $ python -m streamlit run app.py # or streamlit run app.py
+
+streamlit run app.py --logger.level=warning 2>'app_log.log'
 ```
 
 If all went well, your app should be available on [http://127.0.0.1:8501](http://127.0.0.1:8501)
