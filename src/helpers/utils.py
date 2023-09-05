@@ -21,9 +21,9 @@ def get_text():
 def generate_response(query: str) -> dict[str, Any]:
 
     if query == "who are you":
-        result_content = """I am HD C """
+        result_content = """I am Haidong """
         result = {'query': query, 'result': result_content}
-        return result
+        return {"answer":result}
     else:
 
         chat_history = []
