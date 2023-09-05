@@ -27,7 +27,7 @@ COPY requirments.txt .
 # Install pipenv and compilation dependencies
 #RUN pip install -U setuptools pip pipenv
 #RUN pipenv install --system --deploy
-RUN torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 RUN pip install -r requirments.txt
 
 # Copy project on mac
