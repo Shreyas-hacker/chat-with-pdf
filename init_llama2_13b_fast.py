@@ -1,4 +1,5 @@
-
+# # for GPU use
+# !CT_CUBLAS=1 pip install ctransformers --no-binary ctransformers
 import torch
 
 prompt_001 = """
