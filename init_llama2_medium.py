@@ -31,8 +31,8 @@ Answer: '''
 # Generate results
 tokens = tokenizer(prompt, return_tensors='pt', padding=True, max_length=512)
 res = model.generate(**tokens, max_length=512)
-# res_sentences = [tokenizer.decode(i) for i in res]
-res_sentence = tokenizer.decode(res)
+res_sentences = [tokenizer.decode(i) for i in res]
+# res_sentence = tokenizer.decode(res)
 out_text = res_sentence.split("Answer: ")[1]
 
 # show results
