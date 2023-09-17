@@ -11,10 +11,10 @@ from transformers import AutoModel, AutoTokenizer, AutoModelForCausalLM, LlamaFo
 from peft import PeftModel  # 0.4.0
 import torch
 
-from finnlp.benchmarks.fpb import test_fpb
-from finnlp.benchmarks.fiqa import test_fiqa , add_instructions
-from finnlp.benchmarks.tfns import test_tfns
-from finnlp.benchmarks.nwgi import test_nwgi
+# from finnlp.benchmarks.fpb import test_fpb
+# from finnlp.benchmarks.fiqa import test_fiqa , add_instructions
+# from finnlp.benchmarks.tfns import test_tfns
+# from finnlp.benchmarks.nwgi import test_nwgi
 
 from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 
