@@ -29,6 +29,7 @@ app = FastAPI()
 
 @app.post("/haidonggpt_api")
 def inference(input: User_input):
+    print("my input is {}".format(input))
     return gen_sentiment(input)
 
 # pull up command: uvicorn fastapihaidonggpt:app --reload --host 0.0.0.0
