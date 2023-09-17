@@ -7,7 +7,7 @@ base_model = "daryl149/llama-2-7b-chat-hf"
 peft_model = "oliverwang15/FinGPT_v32_Llama2_Sentiment_Instruction_LoRA_FT"
 tokenizer = LlamaTokenizerFast.from_pretrained(base_model, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
-model = LlamaForCausalLM.from_pretrained(base_model, trust_remote_code=True, device_map = "cuda:0")
+model = LlamaForCausalLM.from_pretrained(base_model, trust_remote_code=True, device_map = "auto")
 model = PeftModel.from_pretrained(model, peft_model)
 model = torch.compile(model)  # Please comment this line if your platform does not support torch.compile
 model = model.eval()
