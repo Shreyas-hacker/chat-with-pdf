@@ -29,18 +29,21 @@ Input: FINANCING OF ASPOCOMP 'S GROWTH Aspocomp is aggressively pursuing its gro
 Answer: '''
 
 # Generate results
-tokens = tokenizer(prompt, return_tensors='pt', padding=True, max_length=512)
-res = model.generate(**tokens, max_length=512)
-res_sentences = [tokenizer.decode(i) for i in res]
-# res_sentences = tokenizer.decode(res)
-out_text = [o.split("Answer: ")[1] for o in res_sentences]
-# out_text = res_sentences.split("Answer: ")[1]
+def gen_sentiment(prompt):
+    tokens = tokenizer(prompt, return_tensors='pt', padding=True, max_length=512)
+    res = model.generate(**tokens, max_length=512)
+    res_sentences = [tokenizer.decode(i) for i in res]
+    # res_sentences = tokenizer.decode(res)
+    out_text = [o.split("Answer: ")[1] for o in res_sentences]
+    # out_text = res_sentences.split("Answer: ")[1]
+    return out_text
 
+out_text = gen_sentiment(prompt)
 # show results
 for sentiment in out_text:
     print(sentiment)
 
-print(res_sentences)
+# print(res_sentences)
 # print(res_sentences)
 # print("res"+res)
 
