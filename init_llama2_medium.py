@@ -35,7 +35,9 @@ out_text = [o.split("Answer: ")[1] for o in res_sentences]
 for sentiment in out_text:
     print(sentiment)
 
-print(res_sentences)
+for result_sent in res_sentences:
+    print(result_sent)
+# print(res_sentences)
 # print("res"+res)
 
 # Output:
