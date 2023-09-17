@@ -36,7 +36,7 @@ for sentiment in out_text:
     print(sentiment)
 
 print(res_sentences)
-print("res"+res)
+# print("res"+res)
 
 # Output:
 # positive
