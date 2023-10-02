@@ -12,6 +12,8 @@ model = PeftModel.from_pretrained(model, peft_model)
 model = torch.compile(model)  # Please comment this line if your platform does not support torch.compile
 model = model.eval()
 
+llmLlama2 = model
+
 # Make prompts
 # prompt = [
 # '''Instruction: What is the sentiment of this news? Please choose an answer from {negative/neutral/positive}
