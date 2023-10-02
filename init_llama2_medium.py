@@ -1,14 +1,15 @@
 import os
-
 from langchain import LLMChain, PromptTemplate
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-# from langchain.vectorstores import AnalyticDB
 from torch import cuda, bfloat16
 import transformers
-
-# from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 from langchain.vectorstores import Cassandra
+from langchain.schema import Document
+from langchain.vectorstores.base import VectorStoreRetriever
+from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
+
 
 model_id = 'daryl149/llama-2-7b-chat-hf' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
@@ -136,59 +137,47 @@ def transform_document_into_chunks(document):
     )
     return splitter.split_documents(document)
 
-from langchain.schema import Document
-from langchain.vectorstores.base import VectorStoreRetriever
+
 def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
-
-    # CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
-    #     driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
-    #     host=os.environ.get("PG_HOST", adbpg_host_input),
-    #     port=int(os.environ.get("PG_PORT", adbpg_port_input)),
-    #     database=os.environ.get("PG_DATABASE", adbpg_database_input),
-    #     user=os.environ.get("PG_USER", adbpg_user_input),
-    #     password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
-    # )
-    ASTRA_DB_ID = os.environ.get('ASTRA_DB_ID')
-    ASTRA_DB_REGION = os.environ.get('ASTRA_DB_REGION')
     ASTRA_DB_APPLICATION_TOKEN = os.environ.get('ASTRA_DB_APPLICATION_TOKEN')
     ASTRA_DB_KEYSPACE = os.environ.get('ASTRA_DB_KEYSPACE')
-    ASTRA_DB_CLIENT_ID = os.environ.get("ASTRA_DB_CLIENT_ID")
+    # ASTRA_DB_CLIENT_ID = os.environ.get("ASTRA_DB_CLIENT_ID")
 
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    from cassandra.cluster import Cluster
-    from cassandra.auth import PlainTextAuthProvider
-    #
-    # database_mode = "A"
-    # if database_mode == "A":
-    #     ASTRA_DB_CLIENT_ID = os.environ.get("ASTRA_DB_CLIENT_ID")
-    #     cluster = Cluster(
-    #         cloud={
-    #             "secure_connect_bundle": ASTRA_DB_SECURE_BUNDLE_PATH,
-    #         },
-    #         auth_provider=PlainTextAuthProvider(
-    #             ASTRA_DB_CLIENT_ID,
-    #             ASTRA_DB_APPLICATION_TOKEN,
-    #         ),
-    #     )
-    #     session = cluster.connect()
-    # else:
-    #     raise NotImplementedError
-    #
 
-    scb_path = "secure-connect-demo-test.zip"
-    cloud_config = {
-        'secure_connect_bundle': scb_path
-    }
-    cass_user = "token"
-    cass_pw = os.environ.get("CASS_PW",ASTRA_DB_APPLICATION_TOKEN)
-    auth_provider = PlainTextAuthProvider(cass_user, cass_pw)
-    cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider, protocol_version=4)
-    session = cluster.connect()
+    ASTRA_DB_SECURE_BUNDLE_PATH = "secure-connect-demo-test.zip"
 
 
+
+    def getCQLSession(mode='astra_db'):
+        if mode == 'astra_db':
+            cluster = Cluster(
+                cloud={
+                    "secure_connect_bundle": ASTRA_DB_SECURE_BUNDLE_PATH,
+                },
+                auth_provider=PlainTextAuthProvider(
+                    "token",
+                    ASTRA_DB_APPLICATION_TOKEN,
+                ),
+            )
+            astraSession = cluster.connect()
+            return astraSession
+        else:
+            raise ValueError('Unsupported CQL Session mode')
+
+    def getCQLKeyspace(mode='astra_db'):
+        if mode == 'astra_db':
+            return ASTRA_DB_KEYSPACE
+        else:
+            raise ValueError('Unsupported CQL Session mode')
+
+    # creation of the DB connection
+    cqlMode = 'astra_db'
+    session = getCQLSession(mode=cqlMode)
+    keyspace = getCQLKeyspace(mode=cqlMode)
 
     db = Cassandra.from_documents(
     documents=text,
