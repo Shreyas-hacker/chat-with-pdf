@@ -197,14 +197,19 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
         },
     )
 
-    db = Cassandra.from_documents(
-    documents=text,
-    embedding=embeddingsllama2,
-    session=session,
-    keyspace=ASTRA_DB_KEYSPACE,
-    table_name=table_name,
-)
-    return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
+    index = index_creator.from_loaders([loader])
+    retriever = index.vectorstore.as_retriever(search_kwargs={
+        'k': 2,
+    })
+
+#     db = Cassandra.from_documents(
+#     documents=text,
+#     embedding=embeddingsllama2,
+#     session=session,
+#     keyspace=ASTRA_DB_KEYSPACE,
+#     table_name=table_name,
+# )
+    return retriever
 
 
 
