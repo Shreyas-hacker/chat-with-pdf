@@ -19,7 +19,7 @@ import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
 from init_llama2_medium import llmLlama2, embeddingsllama2
-from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
+# from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 from langchain.vectorstores import Cassandra
 
 my_openai_api_key = 'something'
