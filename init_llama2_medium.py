@@ -202,7 +202,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     embedding=embeddingsllama2,
     session=session,
     keyspace=ASTRA_DB_KEYSPACE,
-    table_name="cassandrademo",
+    table_name=table_name,
 )
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
