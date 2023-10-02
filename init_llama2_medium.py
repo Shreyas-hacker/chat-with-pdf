@@ -202,13 +202,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
         'k': 2,
     })
 
-#     db = Cassandra.from_documents(
-#     documents=text,
-#     embedding=embeddingsllama2,
-#     session=session,
-#     keyspace=ASTRA_DB_KEYSPACE,
-#     table_name=table_name,
-# )
+
     return retriever
 
 
