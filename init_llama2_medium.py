@@ -1,6 +1,7 @@
 import os
 from langchain import LLMChain, PromptTemplate
 from langchain.document_loaders import PyPDFLoader
+from langchain.indexes import VectorstoreIndexCreator
 from langchain.text_splitter import CharacterTextSplitter
 from torch import cuda, bfloat16
 import transformers
@@ -179,9 +180,26 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     session = getCQLSession(mode=cqlMode)
     keyspace = getCQLKeyspace(mode=cqlMode)
 
+    llmProvider = "llama2"
+    table_name = 'vs_test1_' + llmProvider
+
+    index_creator = VectorstoreIndexCreator(
+        vectorstore_cls=Cassandra,
+        embedding=embeddingsllama2,
+        text_splitter=CharacterTextSplitter(
+            chunk_size=400,
+            chunk_overlap=0,
+        ),
+        vectorstore_kwargs={
+            'session': session,
+            'keyspace': keyspace,
+            'table_name': table_name,
+        },
+    )
+
     db = Cassandra.from_documents(
     documents=text,
-    embedding=embeddings,
+    embedding=embeddingsllama2,
     session=session,
     keyspace=ASTRA_DB_KEYSPACE,
     table_name="cassandrademo",
