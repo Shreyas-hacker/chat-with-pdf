@@ -153,12 +153,13 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     ASTRA_DB_REGION = os.environ.get('ASTRA_DB_REGION')
     ASTRA_DB_APPLICATION_TOKEN = os.environ.get('ASTRA_DB_APPLICATION_TOKEN')
     ASTRA_DB_KEYSPACE = os.environ.get('ASTRA_DB_KEYSPACE')
+    ASTRA_DB_CLIENT_ID = os.environ.get("ASTRA_DB_CLIENT_ID")
 
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    # from cassandra.cluster import Cluster
-    # from cassandra.auth import PlainTextAuthProvider
+    from cassandra.cluster import Cluster
+    from cassandra.auth import PlainTextAuthProvider
     #
     # database_mode = "A"
     # if database_mode == "A":
@@ -177,17 +178,16 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     #     raise NotImplementedError
     #
 
-    # cloud_config = {
-    #     'secure_connect_bundle': scb_path
-    # }
-    # auth_provider = PlainTextAuthProvider(cass_user, cass_pw)
-    # cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider, protocol_version=4)
-    # session = cluster.connect()
-    from astrapy.rest import create_client, http_methods
-    session = astra_http_client = create_client(astra_database_id=ASTRA_DB_ID,
-  astra_database_region=ASTRA_DB_REGION,
-  astra_application_token=ASTRA_DB_APPLICATION_TOKEN)
-    session.set_keyspace(ASTRA_DB_KEYSPACE)
+    scb_path = "secure-connect-demo-test.zip"
+    cloud_config = {
+        'secure_connect_bundle': scb_path
+    }
+    cass_user = os.environ.get("CASS_USER",ASTRA_DB_CLIENT_ID)
+    cass_pw = os.environ.get("CASS_PW",ASTRA_DB_APPLICATION_TOKEN)
+    auth_provider = PlainTextAuthProvider(cass_user, cass_pw)
+    cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider, protocol_version=4)
+    session = cluster.connect()
+
 
 
     db = Cassandra.from_documents(
