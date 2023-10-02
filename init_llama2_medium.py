@@ -137,6 +137,7 @@ def transform_document_into_chunks(document):
     return splitter.split_documents(document)
 
 from langchain.schema import Document
+from langchain.vectorstores.base import VectorStoreRetriever
 def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
     # CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
