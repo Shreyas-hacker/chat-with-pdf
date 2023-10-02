@@ -182,7 +182,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     cloud_config = {
         'secure_connect_bundle': scb_path
     }
-    cass_user = os.environ.get("CASS_USER",ASTRA_DB_CLIENT_ID)
+    cass_user = "token"
     cass_pw = os.environ.get("CASS_PW",ASTRA_DB_APPLICATION_TOKEN)
     auth_provider = PlainTextAuthProvider(cass_user, cass_pw)
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider, protocol_version=4)
