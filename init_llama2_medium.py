@@ -140,6 +140,7 @@ from langchain.schema import Document
 from langchain.vectorstores.base import VectorStoreRetriever
 def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
+
     # CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
     #     driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
     #     host=os.environ.get("PG_HOST", adbpg_host_input),
@@ -156,11 +157,43 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    # db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+    # from cassandra.cluster import Cluster
+    # from cassandra.auth import PlainTextAuthProvider
+    #
+    # database_mode = "A"
+    # if database_mode == "A":
+    #     ASTRA_DB_CLIENT_ID = os.environ.get("ASTRA_DB_CLIENT_ID")
+    #     cluster = Cluster(
+    #         cloud={
+    #             "secure_connect_bundle": ASTRA_DB_SECURE_BUNDLE_PATH,
+    #         },
+    #         auth_provider=PlainTextAuthProvider(
+    #             ASTRA_DB_CLIENT_ID,
+    #             ASTRA_DB_APPLICATION_TOKEN,
+    #         ),
+    #     )
+    #     session = cluster.connect()
+    # else:
+    #     raise NotImplementedError
+    #
+
+    # cloud_config = {
+    #     'secure_connect_bundle': scb_path
+    # }
+    # auth_provider = PlainTextAuthProvider(cass_user, cass_pw)
+    # cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider, protocol_version=4)
+    # session = cluster.connect()
+    from astrapy.rest import create_client, http_methods
+    session = astra_http_client = create_client(astra_database_id=ASTRA_DB_ID,
+  astra_database_region=ASTRA_DB_REGION,
+  astra_application_token=ASTRA_DB_APPLICATION_TOKEN)
+    session.set_keyspace(ASTRA_DB_KEYSPACE)
+
+
     db = Cassandra.from_documents(
     documents=text,
     embedding=embeddings,
-    # session=session,
+    session=session,
     keyspace=ASTRA_DB_KEYSPACE,
     table_name="cassandrademo",
 )
