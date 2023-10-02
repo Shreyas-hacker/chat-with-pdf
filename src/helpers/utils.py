@@ -101,6 +101,10 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     #     user=os.environ.get("PG_USER", adbpg_user_input),
     #     password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
     # )
+    ASTRA_DB_ID = os.environ.get('ASTRA_DB_ID')
+    ASTRA_DB_REGION = os.environ.get('ASTRA_DB_REGION')
+    ASTRA_DB_APPLICATION_TOKEN = os.environ.get('ASTRA_DB_APPLICATION_TOKEN')
+    ASTRA_DB_KEYSPACE = os.environ.get('ASTRA_DB_KEYSPACE')
 
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
