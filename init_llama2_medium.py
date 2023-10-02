@@ -136,7 +136,36 @@ def transform_document_into_chunks(document):
     )
     return splitter.split_documents(document)
 
-from src.helpers.utils import transform_chunks_into_embeddings
+
+def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
+    """Transform chunks into embeddings"""
+    # CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
+    #     driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
+    #     host=os.environ.get("PG_HOST", adbpg_host_input),
+    #     port=int(os.environ.get("PG_PORT", adbpg_port_input)),
+    #     database=os.environ.get("PG_DATABASE", adbpg_database_input),
+    #     user=os.environ.get("PG_USER", adbpg_user_input),
+    #     password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
+    # )
+    ASTRA_DB_ID = os.environ.get('ASTRA_DB_ID')
+    ASTRA_DB_REGION = os.environ.get('ASTRA_DB_REGION')
+    ASTRA_DB_APPLICATION_TOKEN = os.environ.get('ASTRA_DB_APPLICATION_TOKEN')
+    ASTRA_DB_KEYSPACE = os.environ.get('ASTRA_DB_KEYSPACE')
+
+    # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
+    embeddings = embeddingsllama2
+
+    # db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+    db = Cassandra.from_documents(
+    documents=text,
+    embedding=embeddings,
+    # session=session,
+    keyspace=ASTRA_DB_KEYSPACE,
+    table_name="cassandrademo",
+)
+    return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
+
+
 
 
 
