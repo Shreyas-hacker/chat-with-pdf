@@ -9,15 +9,28 @@ from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import Document
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
 from langchain.vectorstores.base import VectorStoreRetriever
 
-import psycopg2cffi
-from langchain.vectorstores.analyticdb import AnalyticDB
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.vectorstores import Cassandra
+from langchain.indexes.vectorstore import VectorStoreIndexWrapper, VectorstoreIndexCreator
 
-my_openai_api_key = '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'
+my_openai_api_key = os.getenv("OPENAI_API_KEY")
 
+import os
+import cassio
 
+token = os.getenv("ASTRA_DB_APPLICATION_TOKEN")
+database_id = os.getenv("ASTRA_DB_ID")
+keyspace = os.getenv("ASTRA_DB_KEYSPACE")
+table_name = os.getenv("ASTRA_DB_TABLENAME")
+
+cassio.init(
+        token=token,
+        database_id=database_id,
+        keyspace=keyspace,
+)
 
 
 
@@ -65,20 +78,44 @@ def transform_document_into_chunks(document: list[Document]) -> list[Document]:
 
 
 
-def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
+def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token ) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
-    CONNECTION_STRING = AnalyticDB.connection_string_from_db_params(
-        driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
-        host=os.environ.get("PG_HOST", adbpg_host_input),
-        port=int(os.environ.get("PG_PORT", adbpg_port_input)),
-        database=os.environ.get("PG_DATABASE", adbpg_database_input),
-        user=os.environ.get("PG_USER", adbpg_user_input),
-        password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
-    )
+
 
     embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
-    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
-    return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
+    # db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+    db = Cassandra(
+        table_name=table_name,
+        embedding=embeddings,
+        session=None,  # = get defaults from init()
+        keyspace=keyspace,  # = get defaults from init()
+    )
+
+    index_creator = VectorstoreIndexCreator(
+        vectorstore_cls=Cassandra,
+        embedding=embeddings,
+        text_splitter=CharacterTextSplitter(
+            chunk_size=400,
+            chunk_overlap=0,
+        ),
+        vectorstore_kwargs={
+            'session': None,
+            'keyspace': keyspace,
+            'table_name': table_name,
+        },
+    )
+
+    vs = index_creator.vectorstore_cls.from_documents(
+        text,
+        index_creator.embedding,
+        **index_creator.vectorstore_kwargs,
+    )
+    index = VectorStoreIndexWrapper(vectorstore=vs)
+    retriever = index.vectorstore.as_retriever(search_kwargs={
+        'k': k,"search_type":"mmr",
+    })
+
+    return retriever
 
 def get_file_path(file) -> str:
     """Obtain the file full path."""
@@ -87,11 +124,11 @@ def get_file_path(file) -> str:
         return f.name
 
 
-def setup(file: str, number_of_relevant_chunk: int, open_ai_token: str , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
+def setup(file: str, number_of_relevant_chunk: int, open_ai_token: str ) -> VectorStoreRetriever:
     # load the document
     loader = PyPDFLoader(file)
     document = loader.load()
     # transform the document into chunks
     chunks = transform_document_into_chunks(document)
     # transform the chunks into embeddings
-    return transform_chunks_into_embeddings(chunks, number_of_relevant_chunk ,open_ai_token,adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input)
+    return transform_chunks_into_embeddings(chunks, number_of_relevant_chunk ,open_ai_token)
