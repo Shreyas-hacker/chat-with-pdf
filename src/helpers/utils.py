@@ -13,25 +13,13 @@ from langchain.vectorstores.base import VectorStoreRetriever
 
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAI
-from langchain.vectorstores import Cassandra
+# from langchain.vectorstores import Cassandra
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper, VectorstoreIndexCreator
+from langchain.vectorstores import Clickhouse, ClickhouseSettings
 
 my_openai_api_key = os.getenv("OPENAI_API_KEY")
 
 import os
-import cassio
-
-token = os.getenv("ASTRA_DB_APPLICATION_TOKEN")
-database_id = os.getenv("ASTRA_DB_ID")
-keyspace = os.getenv("ASTRA_DB_KEYSPACE")
-table_name = os.getenv("ASTRA_DB_TABLENAME")
-
-cassio.init(
-        token=token,
-        database_id=database_id,
-        keyspace=keyspace,
-)
-
 
 
 def get_text():
@@ -84,35 +72,13 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
 
     embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     # db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
-    db = Cassandra(
-        table_name=table_name,
-        embedding=embeddings,
-        session=None,  # = get defaults from init()
-        keyspace=keyspace,  # = get defaults from init()
-    )
+    settings = ClickhouseSettings(table="clickhouse_vector_search_example")
+    docsearch = Clickhouse.from_documents(text, embeddings, config=settings)
+    db = docsearch
 
-    index_creator = VectorstoreIndexCreator(
-        vectorstore_cls=Cassandra,
-        embedding=embeddings,
-        text_splitter=CharacterTextSplitter(
-            chunk_size=400,
-            chunk_overlap=0,
-        ),
-        vectorstore_kwargs={
-            'session': None,
-            'keyspace': keyspace,
-            'table_name': table_name,
-        },
-    )
-
-    vs = index_creator.vectorstore_cls.from_documents(
-        text,
-        index_creator.embedding,
-        **index_creator.vectorstore_kwargs,
-    )
-    index = VectorStoreIndexWrapper(vectorstore=vs)
-    retriever = index.vectorstore.as_retriever(search_kwargs={
-        'k': k,"search_type":"mmr",
+    # index = VectorStoreIndexWrapper(vectorstore=db)
+    retriever = db.as_retriever(search_kwargs={
+        'k': k,"search_type":"similarity_search",
     })
 
     return retriever

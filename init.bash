@@ -1,4 +1,4 @@
-#!/bin/bash\n
+  #!/bin/bash\n
 
 rm -rf /etc/environmentadb \n
 cat >> /etc/environmentadb << \"EOF\" \n
@@ -17,3 +17,4 @@ cp .devops/Dockerfile . && docker build . -t haidonggpt/front:1.0   && docker ru
 
 
 
+docker run -d -p 8123:8123 -p9000:9000 --name langchain-clickhouse-server --ulimit nofile=262144:262144 clickhouse/clickhouse-server
