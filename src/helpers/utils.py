@@ -2,6 +2,8 @@ import os
 import pprint
 from tempfile import NamedTemporaryFile
 from typing import Any
+
+import clickhouse_connect
 import streamlit as st
 from langchain import OpenAI
 from langchain.chains import RetrievalQA
@@ -18,6 +20,10 @@ from langchain.indexes.vectorstore import VectorStoreIndexWrapper, VectorstoreIn
 from langchain.vectorstores import Clickhouse, ClickhouseSettings
 
 my_openai_api_key = os.getenv("OPENAI_API_KEY")
+clickhouse_host = os.getenv("clickhouse_host")
+clickhouse_username = os.getenv("clickhouse_username")
+clickhouse_password = os.getenv("clickhouse_password")
+
 
 import os
 
@@ -69,10 +75,12 @@ def transform_document_into_chunks(document: list[Document]) -> list[Document]:
 def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token ) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
 
-
     embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     # db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
-    settings = ClickhouseSettings(table="clickhouse_vector_search_example")
+    for d in text:
+        d.metadata = {"some": "metadata"}
+    settings = ClickhouseSettings(table="clickhouse_vector_search_example_1",host=clickhouse_host,password=clickhouse_password,port=8443)
+
     docsearch = Clickhouse.from_documents(text, embeddings, config=settings)
     db = docsearch
 
